@@ -8,7 +8,7 @@ const PRIO_LABEL: Record<Todo['priority'], string> = {
 };
 
 export default function TodoItem({ todo }: { todo: Todo }) {
-  const { dispatch } = useTodos();
+  const { toggleTodo, removeTodo } = useTodos();
 
   return (
     <li className={`item ${todo.done ? 'done' : ''}`}>
@@ -18,7 +18,7 @@ export default function TodoItem({ todo }: { todo: Todo }) {
         role="checkbox"
         aria-checked={todo.done}
         aria-label={todo.done ? '완료 취소' : '완료로 표시'}
-        onClick={() => dispatch({ type: 'TOGGLE', id: todo.id })}
+        onClick={() => void toggleTodo(todo)}
       >
         {todo.done ? '✓' : ''}
       </button>
@@ -27,6 +27,15 @@ export default function TodoItem({ todo }: { todo: Todo }) {
         <span className="item-badge prio-high-badge">{PRIO_LABEL.high}</span>
       )}
       {todo.dueDate && <span className="item-due">{todo.dueDate}</span>}
+      <button
+        type="button"
+        className="item-delete"
+        aria-label="삭제"
+        title="삭제"
+        onClick={() => void removeTodo(todo.id)}
+      >
+        ×
+      </button>
     </li>
   );
 }

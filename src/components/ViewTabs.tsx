@@ -8,7 +8,7 @@ const TABS: { value: View; label: string }[] = [
 ];
 
 export default function ViewTabs({ counts }: { counts: Record<View, number> }) {
-  const { view, dispatch } = useTodos();
+  const { view, setView } = useTodos();
 
   return (
     <div className="tabs" role="tablist" aria-label="할 일 보기">
@@ -18,7 +18,7 @@ export default function ViewTabs({ counts }: { counts: Record<View, number> }) {
           role="tab"
           aria-selected={view === t.value}
           className={`tab ${view === t.value ? 'on' : ''}`}
-          onClick={() => dispatch({ type: 'SET_VIEW', view: t.value })}
+          onClick={() => setView(t.value)}
         >
           {t.label}
           <span className="tab-count">{counts[t.value]}</span>

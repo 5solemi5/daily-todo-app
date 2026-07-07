@@ -9,7 +9,7 @@ const PRIORITIES: { value: Priority; label: string }[] = [
 ];
 
 export default function QuickAdd() {
-  const { dispatch } = useTodos();
+  const { addTodo } = useTodos();
   const [title, setTitle] = useState('');
   const [priority, setPriority] = useState<Priority>('normal');
   const [dueDate, setDueDate] = useState('');
@@ -18,7 +18,7 @@ export default function QuickAdd() {
 
   function submit() {
     if (!title.trim()) return;
-    dispatch({ type: 'ADD', title, priority, dueDate: dueDate || undefined });
+    void addTodo({ title, priority, dueDate: dueDate || undefined });
     setTitle('');
     setDueDate('');
     // keep priority as-is for quick repeated entry (P5: 연속 등록)
